@@ -36,11 +36,11 @@ export default async function MenuItemPage({
   const others = siblings.filter((s) => s.id !== item.id);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-[#E8E2D6] px-6 py-16 sm:px-12">
+    <main className="min-h-screen bg-background text-foreground px-6 py-16 sm:px-12">
       <div className="max-w-2xl mx-auto">
         <Link
           href="/menu"
-          className="font-serif text-xs tracking-[0.3em] text-[#C9A66B] hover:text-[#F1E9D8] transition-colors"
+          className="font-serif text-xs tracking-[0.3em] text-accent hover:text-foreground-strong transition-colors"
         >
           ← MENU
         </Link>
@@ -57,11 +57,11 @@ export default async function MenuItemPage({
 
         {/* prev / next within category */}
         {(prev || next) && (
-          <div className="flex justify-between items-center mt-14 pt-6 border-t border-[#2a241a] font-serif">
+          <div className="flex justify-between items-center mt-14 pt-6 border-t border-line font-serif">
             {prev ? (
               <Link
                 href={`/menu/${prev.id}`}
-                className="text-sm text-[#8A8172] hover:text-[#F1E9D8] transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground-strong transition-colors"
               >
                 ← {prev.name}
               </Link>
@@ -71,7 +71,7 @@ export default async function MenuItemPage({
             {next ? (
               <Link
                 href={`/menu/${next.id}`}
-                className="text-sm text-[#8A8172] hover:text-[#F1E9D8] transition-colors text-right"
+                className="text-sm text-muted-foreground hover:text-foreground-strong transition-colors text-right"
               >
                 {next.name} →
               </Link>
@@ -84,7 +84,7 @@ export default async function MenuItemPage({
         {/* more from this category */}
         {others.length > 0 && (
           <div className="mt-12 font-serif">
-            <h2 className="text-xs tracking-[0.3em] text-[#8A8172] mb-4">
+            <h2 className="text-xs tracking-[0.3em] text-muted-foreground mb-4">
               MORE FROM {item.category.toUpperCase()}
             </h2>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -92,10 +92,10 @@ export default async function MenuItemPage({
                 <Link
                   key={o.id}
                   href={`/menu/${o.id}`}
-                  className="border border-[#2a241a] rounded-sm p-4 hover:border-[#C9A66B]/50 transition-colors flex justify-between items-center gap-3"
+                  className="border border-line rounded-sm p-4 hover:border-accent/50 transition-colors flex justify-between items-center gap-3"
                 >
-                  <span className="text-sm text-[#D8CBB0]">{o.name}</span>
-                  <span className="text-xs text-[#C9A66B] whitespace-nowrap">
+                  <span className="text-sm text-secondary">{o.name}</span>
+                  <span className="text-xs text-accent whitespace-nowrap">
                     ${(o.price / 100).toFixed(2)}
                   </span>
                 </Link>

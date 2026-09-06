@@ -3,6 +3,8 @@ import { menuItems } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import Image from "next/image";
+import Diamond from "../components/Diamond";
+import SectionDivider from "../components/SectionDivider";
 
 export const dynamic = "force-dynamic";
 
@@ -90,21 +92,24 @@ export default async function MenuPage() {
   })).filter((group) => group.items.length > 0);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-[#E8E2D6]">
+    <main className="min-h-screen bg-background text-foreground">
       <div className="px-6 py-10 sm:px-12">
         <Link
           href="/"
-          className="font-serif text-xs tracking-[0.3em] text-[#C9A66B] hover:text-[#F1E9D8] transition-colors"
+          className="font-serif text-xs tracking-[0.3em] text-accent hover:text-foreground-strong transition-colors"
         >
           ← AHADU
         </Link>
         <h1 className="font-serif text-4xl tracking-[0.2em] mt-8">MENU</h1>
+        <SectionDivider className="mt-6 max-w-xs" />
       </div>
 
       {grouped.map((group) => (
         <section key={group.category} className="mb-4">
-          {/* category banner */}
-          <div className="relative aspect-[3/1] overflow-hidden">
+          {/* category banner — capped height so it can't balloon on wide
+              screens; below ~960px wide it's still a true 3:1 band, above
+              that the height holds steady and the crop just gets wider */}
+          <div className="relative aspect-[3/1] max-h-80 overflow-hidden">
             {group.image ? (
               <>
                 <Image
@@ -125,19 +130,34 @@ export default async function MenuPage() {
                 />
               </>
             ) : (
-              <div className="absolute inset-0 bg-[#161412]" />
+              <div className="absolute inset-0 bg-muted" />
             )}
             <div className="relative z-10 h-full flex items-center px-6 sm:px-12">
-              <h2
-                className="font-serif text-2xl sm:text-3xl tracking-[0.25em] text-[#F1E9D8] px-4 py-2 -mx-4 rounded-sm"
+              {/* frosted glass plate — same treatment regardless of how
+                  bright the photo behind it is, so legibility never
+                  depends on which category this happens to be */}
+              <div
+                className="flex items-center gap-3 px-5 py-3 rounded-sm border"
                 style={{
-                  textShadow: "0 2px 16px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.9)",
-                  backgroundColor: "rgba(0,0,0,0.28)",
-                  backdropFilter: "blur(2px)",
+                  backgroundColor: "var(--glass-bg)",
+                  borderColor: "var(--glass-border)",
+                  backdropFilter: "blur(6px)",
+                  WebkitBackdropFilter: "blur(6px)",
+                  boxShadow:
+                    "0 1px 0 rgba(255,255,255,0.06) inset, 0 8px 24px rgba(0,0,0,0.35)",
                 }}
               >
-                {group.label.toUpperCase()}
-              </h2>
+                <Diamond />
+                <h2
+                  className="font-serif text-2xl sm:text-3xl tracking-[0.25em] text-foreground-strong"
+                  style={{
+                    textShadow: "0 2px 16px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.9)",
+                  }}
+                >
+                  {group.label.toUpperCase()}
+                </h2>
+                <Diamond />
+              </div>
             </div>
           </div>
 
@@ -148,7 +168,7 @@ export default async function MenuPage() {
                 <Link
                   key={item.id}
                   href={`/menu/${item.id}`}
-                  className="block border border-[#2a241a] rounded-sm overflow-hidden hover:border-[#C9A66B]/50 transition-colors font-serif"
+                  className="block border border-line rounded-sm overflow-hidden hover:border-accent/50 transition-colors font-serif"
                 >
                   {item.imageUrl && (
                     <div className="relative w-full aspect-[16/9]">
@@ -162,12 +182,12 @@ export default async function MenuPage() {
                   )}
                   <div className="p-5">
                     <div className="flex justify-between items-start gap-3">
-                      <h3 className="text-[#F1E9D8] tracking-wide">{item.name}</h3>
-                      <span className="text-sm text-[#C9A66B] whitespace-nowrap">
+                      <h3 className="text-foreground-strong tracking-wide">{item.name}</h3>
+                      <span className="text-sm text-accent whitespace-nowrap">
                         ${(item.price / 100).toFixed(2)}
                       </span>
                     </div>
-                    <p className="text-sm text-[#8A8172] mt-2 leading-relaxed">
+                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                       {item.description}
                     </p>
                     {item.dietaryTags.length > 0 && (
@@ -175,7 +195,7 @@ export default async function MenuPage() {
                         {item.dietaryTags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] tracking-wider px-2 py-0.5 rounded-full border border-[#3a3226] text-[#8A8172]"
+                            className="text-[10px] tracking-wider px-2 py-0.5 rounded-full border border-line-strong text-muted-foreground"
                           >
                             {tag.toUpperCase()}
                           </span>

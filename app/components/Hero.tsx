@@ -77,7 +77,7 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center px-6">
         <h1
-          className="font-serif text-[clamp(2.5rem,8vw,5.5rem)] tracking-[0.35em] text-[#F1E9D8]"
+          className="font-serif text-[clamp(2.5rem,8vw,5.5rem)] tracking-[0.35em] text-foreground-strong"
           style={{
             textShadow: "0 0 40px rgba(224,180,110,0.35), 0 0 90px rgba(0,0,0,0.6)",
           }}
