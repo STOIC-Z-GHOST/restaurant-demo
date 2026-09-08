@@ -88,24 +88,33 @@ change is a one-file edit:
 diamond and the rule–diamond–rule divider — the same flourish from the
 `AHADU` logo, pulled out so it's reused consistently instead of one-off.
 
-## Category banner images — sizing & the "glass" fix
+## Category banners — painted, not photographed
 
-The category banner (`app/menu/page.tsx`) is `aspect-[3/1]` with `max-h-80`
-(320px). Below ~960px viewport width it renders as a true 3:1 strip; past that
-the height holds at 320px and the visible slice just gets wider (up to
-roughly 6:1 on a very wide monitor) since `object-cover` always fills the box.
+The category banners on the menu page (`app/menu/page.tsx`) no longer use
+photos. A photo has one "correct" height it was composed for — crop it
+shorter (which the `max-h-80` cap does on wide screens) and it reads as cut
+off, which is exactly what felt "off" about the original half-cropped photo
+banners. A gradient or generated texture has no such thing, so it looks
+intentional at any height.
 
-**For cropping source photos:** export at roughly **1800×600px (3:1)** and
-keep the subject centered in the middle ~60% of the frame, both ways. That
-gives enough margin that the subject stays in frame whether the browser is
-showing the full 3:1 image or the narrower slice that appears on wide screens.
+- **Breakfast / lunch / dinner** — a plain CSS gradient wash per category
+  (lightest to darkest in that order), no image at all.
+- **Drinks / desserts** — a generated low-poly "facet" SVG texture in the
+  site's own gold/espresso/wine palette
+  (`public/images/categories/facets-drinks.svg` and `facets-dessert.svg`),
+  regenerable via `scripts/generate-category-facets.py`. Both are biased
+  dark-to-light left-to-right (or on a diagonal, for drinks) so the title
+  plate — which sits on the left — always lands on the calmer, darker part
+  of the pattern, whatever the exact crop ends up being.
 
-The category title now sits on a frosted glass plate (`--glass-bg` +
-`--glass-border` + blur) instead of a flat low-opacity box — this was a
-deliberate fix: the old box was tuned by eye and read fine on the darker
-categories (dinner, drinks) but was nearly invisible on the deliberately
-brighter breakfast/lunch photos. The glass plate's contrast doesn't depend on
-what's behind it, so it holds up the same way regardless of the photo.
+The old category photos (`public/images/categories/breakfast.png` etc.) are
+no longer referenced but are still in the repo if you want to go back to a
+photo treatment for any category — just add it back into the
+`CATEGORY_BACKGROUND` map as a `url(...)` with `backgroundSize: "cover"`.
+
+The category title still sits on the same frosted glass plate regardless of
+what's behind it — that part didn't change, and isn't tied to the photo vs.
+painted question at all.
 
 
 

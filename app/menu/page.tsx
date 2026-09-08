@@ -18,62 +18,30 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 const CATEGORY_ORDER = ["breakfast", "lunch", "dinner", "drinks", "desserts"];
 
-const CATEGORY_IMAGES: Record<string, string> = {
-  breakfast: "/images/categories/breakfast.png",
-  lunch: "/images/categories/lunch.png",
-  dinner: "/images/categories/dinner.png",
-  drinks: "/images/categories/drinks.png",
-  desserts: "/images/categories/desserts-v2.png",
+// Category banners are painted, not photographed. A photo has one "correct"
+// height it was composed for -- crop it shorter and it reads as cut off.
+// A gradient or generated texture has no such thing, so it looks intentional
+// at any height, including the capped max-h below on wide screens.
+//
+// breakfast/lunch/dinner: a straight time-of-day gradient wash, lightest to
+// darkest in that order (matches the old photo treatment's mood progression).
+// dessert/drinks: a generated low-poly "facet" texture in the site's own
+// gold/espresso/wine palette -- dessert denser and more colorful ("mix of
+// different colors, brown with some mix"), drinks sparser with brighter
+// glints along a diagonal sweep, like light catching a glass edge. Both are
+// biased dark-to-light left-to-right so the title plate (which sits at the
+// left) always lands on the calmer, darker side of the pattern.
+const CATEGORY_BACKGROUND: Record<string, string> = {
+  breakfast: "linear-gradient(160deg, #7a5a34 0%, #40301c 45%, #201408 100%)",
+  lunch: "linear-gradient(160deg, #9c7c48 0%, #5c4020 45%, #2e1f10 100%)",
+  dinner: "linear-gradient(160deg, #241810 0%, #120c07 50%, #08050a 100%)",
+  drinks: "url(/images/categories/facets-drinks.svg)",
+  desserts: "url(/images/categories/facets-dessert.svg)",
 };
 
-// each category gets its own time-of-day mood instead of one flat dark filter
-const CATEGORY_TONE: Record<
-  string,
-  { filter: string; overlay: string }
-> = {
-  breakfast: {
-    // bright, warm, morning light — barely darkened
-    filter: "saturate(1.05) brightness(0.95) contrast(1.02)",
-    overlay:
-      "linear-gradient(180deg, rgba(20,14,6,0.15) 0%, rgba(20,14,6,0.55) 100%)",
-  },
-  lunch: {
-    // bright midday sun — distinct from breakfast's soft warm glow: cooler,
-    // higher contrast, closer to full daylight
-    filter: "saturate(1.08) brightness(1.02) contrast(1.08)",
-    overlay:
-      "linear-gradient(180deg, rgba(10,10,8,0.08) 0%, rgba(10,10,8,0.45) 100%)",
-  },
-  dinner: {
-    // dark, moody, evening — eased up slightly from too-dark
-    filter: "grayscale(0.3) sepia(0.22) brightness(0.55) contrast(1.05)",
-    overlay:
-      "linear-gradient(180deg, rgba(8,6,3,0.3) 0%, rgba(8,6,3,0.7) 100%)",
-  },
-  drinks: {
-    // cool, clean, sparkling — less sepia, higher clarity
-    filter: "saturate(1.1) brightness(0.7) hue-rotate(-4deg) contrast(1.05)",
-    overlay:
-      "linear-gradient(180deg, rgba(10,14,16,0.25) 0%, rgba(10,12,14,0.68) 100%)",
-  },
-  desserts: {
-    // light but golden
-    filter: "saturate(1.1) sepia(0.15) brightness(0.88) contrast(1.02)",
-    overlay:
-      "linear-gradient(180deg, rgba(24,16,4,0.2) 0%, rgba(24,16,4,0.58) 100%)",
-  },
-};
-
-// how each banner photo is cropped within its short wide frame —
-// most look fine centered, but the dessert shot has its subject
-// (the glass) lower in the frame, so its default center-crop was
-// cutting it off
-const CATEGORY_POSITION: Record<string, string> = {
-  breakfast: "center",
-  lunch: "center",
-  dinner: "center",
-  drinks: "center",
-  desserts: "center",
+const CATEGORY_BACKGROUND_SIZE: Record<string, string> = {
+  drinks: "100% 100%",
+  desserts: "100% 100%",
 };
 
 export default async function MenuPage() {
@@ -85,9 +53,8 @@ export default async function MenuPage() {
   const grouped = CATEGORY_ORDER.map((cat) => ({
     category: cat,
     label: CATEGORY_LABELS[cat],
-    image: CATEGORY_IMAGES[cat],
-    tone: CATEGORY_TONE[cat],
-    position: CATEGORY_POSITION[cat],
+    background: CATEGORY_BACKGROUND[cat],
+    backgroundSize: CATEGORY_BACKGROUND_SIZE[cat] ?? "cover",
     items: items.filter((i) => i.category === cat),
   })).filter((group) => group.items.length > 0);
 
@@ -106,36 +73,20 @@ export default async function MenuPage() {
 
       {grouped.map((group) => (
         <section key={group.category} className="mb-4">
-          {/* category banner — capped height so it can't balloon on wide
-              screens; below ~960px wide it's still a true 3:1 band, above
-              that the height holds steady and the crop just gets wider */}
-          <div className="relative aspect-[3/1] max-h-80 overflow-hidden">
-            {group.image ? (
-              <>
-                <Image
-                  src={group.image}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  style={{
-                    filter: group.tone?.filter,
-                    objectPosition: group.position,
-                  }}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: group.tone?.overlay,
-                  }}
-                />
-              </>
-            ) : (
-              <div className="absolute inset-0 bg-muted" />
-            )}
+          {/* category banner -- capped height so it can't balloon on wide
+              screens; painted rather than photographed, see note above */}
+          <div
+            className="relative aspect-[3/1] max-h-80 overflow-hidden"
+            style={{
+              background: group.background,
+              backgroundSize: group.backgroundSize,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
             <div className="relative z-10 h-full flex items-center px-6 sm:px-12">
-              {/* frosted glass plate — same treatment regardless of how
-                  bright the photo behind it is, so legibility never
-                  depends on which category this happens to be */}
+              {/* frosted glass plate -- same treatment regardless of what's
+                  behind it, so legibility never depends on the background */}
               <div
                 className="flex items-center gap-3 px-5 py-3 rounded-sm border"
                 style={{
@@ -168,7 +119,7 @@ export default async function MenuPage() {
                 <Link
                   key={item.id}
                   href={`/menu/${item.id}`}
-                  className="block border border-line rounded-sm overflow-hidden hover:border-accent/50 transition-colors font-serif"
+                  className="block border border-line rounded-sm overflow-hidden font-serif transition-all duration-500 ease-out hover:border-accent/70 hover:scale-[1.015] hover:shadow-[0_0_28px_rgba(201,166,107,0.28)]"
                 >
                   {item.imageUrl && (
                     <div className="relative w-full aspect-[16/9]">

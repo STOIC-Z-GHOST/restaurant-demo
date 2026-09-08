@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-// eight horizontal slivers, softly feathered. They assemble bottom-to-top —
-// the last piece to appear is the top of the glyph — each rising up into
-// place from just below its final position.
-const SLICE_COUNT = 8;
-const FEATHER = 4; // percent
+// twelve horizontal slivers, softly feathered — more, thinner pieces than
+// before for a smoother assembly. They assemble bottom-to-top — the last
+// piece to appear is the top of the glyph — each rising up into place from
+// just below its final position.
+const SLICE_COUNT = 12;
+const FEATHER = 3; // percent
 
 function maskFor(index: number) {
   const step = 100 / SLICE_COUNT;
@@ -28,7 +29,7 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
-    const stagger = 340;
+    const stagger = 290; // was 340 — tuned down slightly since there are more slices now, so the overall build lands a bit slower without dragging
     const startDelay = 250;
     // bottom slice (highest index) appears first, working upward
     const timers = Array.from({ length: SLICE_COUNT }).map((_, i) => {
@@ -42,8 +43,8 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
       }, startDelay + order * stagger);
     });
     const totalReveal = startDelay + SLICE_COUNT * stagger;
-    const startFadeOut = setTimeout(() => setFadingOut(true), totalReveal + 1400);
-    const finish = setTimeout(onComplete, totalReveal + 2100);
+    const startFadeOut = setTimeout(() => setFadingOut(true), totalReveal + 1500);
+    const finish = setTimeout(onComplete, totalReveal + 2200);
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(startFadeOut);
@@ -77,7 +78,7 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
             style={{
               maskImage: maskFor(i),
               WebkitMaskImage: maskFor(i),
-              transition: "opacity 900ms ease-out, transform 900ms cubic-bezier(0.22, 1, 0.36, 1)",
+              transition: "opacity 1100ms ease-out, transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)",
               transform: inFlags[i] ? "translateY(0)" : "translateY(30px)",
               opacity: inFlags[i] ? 1 : 0,
               filter: inFlags[i]
