@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Warm near-black instead of true black — gives photos and text room to
+     breathe instead of forcing everything to the same pitch-dark floor. */
+  --background: #120e0a;
+  --muted: #1c150f; /* one visible step up — cards, modals, elevated panels */
+
+  --foreground: #e8e2d6; /* body text */
+  --foreground-strong: #f1e9d8; /* headings, emphasis (was a repeated literal) */
+  --secondary: #d8cbb0; /* softer accent text (was a repeated literal) */
+  --muted-foreground: #96876f; /* labels/captions — nudged up from #8a8172 to hold contrast against the lighter background */
+
+  --accent: #c9a66b; /* gold */
+
+  --line: #2a2116; /* hairline borders */
+  --line-strong: #3d3223; /* visible borders, hover states */
+
+  /* Frosted-glass panel treatment — used where text sits over a photo of
+     unpredictable brightness (category banners, etc.) so legibility never
+     depends on how dark that particular photo happens to be. */
+  --glass-bg: rgba(18, 14, 10, 0.6);
+  --glass-border: rgba(201, 166, 107, 0.35);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-serif), Georgia, serif;
+}
