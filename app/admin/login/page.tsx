@@ -51,7 +51,7 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full border rounded-md p-2"
         />
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-red-800">{error}</p>}
         <button
           type="submit"
           disabled={loading}

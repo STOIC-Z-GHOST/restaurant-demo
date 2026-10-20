@@ -24,27 +24,36 @@ export default function AdminHeader({
 
   return (
     <div className="flex items-center justify-between mb-8 pb-4 border-b flex-wrap gap-3">
-      <nav className="flex gap-4 text-sm">
+      <nav aria-label="Admin sections" className="flex gap-2 text-sm flex-wrap">
         {TABS.map((t) => (
           <Link
             key={t.key}
             href={t.href}
-            className={
+            aria-current={t.key === current ? "page" : undefined}
+            className={`px-4 py-1.5 rounded-full border transition-colors ${
               t.key === current
-                ? "font-medium underline"
-                : "text-muted-foreground hover:text-foreground transition-colors"
-            }
+                ? "bg-foreground-strong text-background border-foreground-strong"
+                : "text-secondary hover:border-accent hover:text-foreground-strong"
+            }`}
           >
             {t.label}
           </Link>
         ))}
       </nav>
-      <button
-        onClick={handleLogout}
-        className="text-sm text-muted-foreground underline"
-      >
-        Log out
-      </button>
+      <div className="flex items-center gap-5 text-sm">
+        <Link
+          href="/"
+          className="text-accent underline underline-offset-4 hover:text-foreground-strong"
+        >
+          View site
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="text-muted-foreground underline underline-offset-4 hover:text-foreground-strong"
+        >
+          Log out
+        </button>
+      </div>
     </div>
   );
 }

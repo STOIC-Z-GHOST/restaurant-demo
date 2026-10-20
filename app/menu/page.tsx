@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Diamond from "../components/Diamond";
 import SectionDivider from "../components/SectionDivider";
+import SiteHeader from "../components/SiteHeader";
+import CategoryNav from "./CategoryNav";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +46,10 @@ const CATEGORY_BACKGROUND_SIZE: Record<string, string> = {
   desserts: "100% 100%",
 };
 
+function tagLabel(tag: string) {
+  return tag.charAt(0).toUpperCase() + tag.slice(1);
+}
+
 export default async function MenuPage() {
   const items = await db
     .select()
@@ -59,107 +65,121 @@ export default async function MenuPage() {
   })).filter((group) => group.items.length > 0);
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <div className="px-6 py-10 sm:px-12">
-        <Link
-          href="/"
-          className="font-serif text-xs tracking-[0.3em] text-accent hover:text-foreground-strong transition-colors"
-        >
-          ← AHADU
-        </Link>
-        <h1 className="font-serif text-4xl tracking-[0.2em] mt-8">MENU</h1>
-        <SectionDivider className="mt-6 max-w-xs" />
-      </div>
+    <>
+      <SiteHeader />
+      <main className="theme-light min-h-screen">
+        <div className="px-6 pt-14 pb-10 sm:px-12 text-center">
+          <h1 className="font-serif text-4xl sm:text-5xl tracking-[0.2em] text-foreground-strong">
+            MENU
+          </h1>
+          <SectionDivider className="mt-6 mx-auto max-w-[220px]" />
+          <p className="font-body text-base text-secondary mt-6 max-w-md mx-auto leading-relaxed">
+            From breakfast to dessert. Select a dish to see what goes into it.
+          </p>
+        </div>
 
-      {grouped.map((group) => (
-        <section key={group.category} className="mb-4">
-          {/* category banner -- capped height so it can't balloon on wide
-              screens; painted rather than photographed, see note above */}
-          <div
-            className="relative aspect-[3/1] max-h-80 overflow-hidden"
-            style={{
-              background: group.background,
-              backgroundSize: group.backgroundSize,
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
+        <CategoryNav
+          categories={grouped.map((g) => ({ id: g.category, label: g.label }))}
+        />
+
+        {grouped.map((group) => (
+          <section
+            key={group.category}
+            id={group.category}
+            className="scroll-mt-32 pt-12"
           >
-            <div className="relative z-10 h-full flex items-center px-6 sm:px-12">
-              {/* frosted glass plate -- same treatment regardless of what's
-                  behind it, so legibility never depends on the background */}
-              <div
-                className="flex items-center gap-3 px-5 py-3 rounded-sm border"
-                style={{
-                  backgroundColor: "var(--glass-bg)",
-                  borderColor: "var(--glass-border)",
-                  backdropFilter: "blur(6px)",
-                  WebkitBackdropFilter: "blur(6px)",
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.06) inset, 0 8px 24px rgba(0,0,0,0.35)",
-                }}
-              >
-                <Diamond />
-                <h2
-                  className="font-serif text-2xl sm:text-3xl tracking-[0.25em] text-foreground-strong"
+            {/* category banner — painted, not photographed, so it looks
+                intentional at any height; see note above */}
+            <div
+              className="relative h-28 sm:h-36 overflow-hidden"
+              style={{
+                background: group.background,
+                backgroundSize: group.backgroundSize,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              <div className="relative z-10 mx-auto h-full max-w-6xl flex items-center px-6 sm:px-12">
+                {/* frosted plate keeps the title legible over any banner */}
+                <div
+                  className="flex items-center gap-3 px-5 py-3 rounded-sm border"
                   style={{
-                    textShadow: "0 2px 16px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.9)",
+                    backgroundColor: "var(--glass-bg)",
+                    borderColor: "var(--glass-border)",
+                    backdropFilter: "blur(6px)",
+                    WebkitBackdropFilter: "blur(6px)",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                   }}
                 >
-                  {group.label.toUpperCase()}
-                </h2>
-                <Diamond />
+                  <Diamond />
+                  <h2
+                    className="font-serif text-2xl sm:text-3xl tracking-[0.25em] text-[#f1e9d8]"
+                    style={{ textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}
+                  >
+                    {group.label.toUpperCase()}
+                  </h2>
+                  <Diamond />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* items */}
-          <div className="px-6 py-10 sm:px-12">
-            <div className="grid gap-4 sm:grid-cols-2 max-w-5xl">
-              {group.items.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/menu/${item.id}`}
-                  className="block border border-line rounded-sm overflow-hidden font-serif transition-all duration-500 ease-out hover:border-accent/70 hover:scale-[1.015] hover:shadow-[0_0_28px_rgba(201,166,107,0.28)]"
-                >
-                  {item.imageUrl && (
-                    <div className="relative w-full aspect-[16/9]">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    <div className="flex justify-between items-start gap-3">
-                      <h3 className="text-foreground-strong tracking-wide">{item.name}</h3>
-                      <span className="text-sm text-accent whitespace-nowrap">
-                        ${(item.price / 100).toFixed(2)}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                      {item.description}
-                    </p>
-                    {item.dietaryTags.length > 0 && (
-                      <div className="flex gap-2 flex-wrap mt-3">
-                        {item.dietaryTags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] tracking-wider px-2 py-0.5 rounded-full border border-line-strong text-muted-foreground"
-                          >
-                            {tag.toUpperCase()}
-                          </span>
-                        ))}
+            {/* dishes */}
+            <div className="mx-auto max-w-6xl px-6 py-10 sm:px-12">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {group.items.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/menu/${item.id}`}
+                    className="group flex flex-col bg-surface border border-line rounded-sm overflow-hidden transition-[border-color,box-shadow] duration-300 hover:border-accent hover:shadow-[0_10px_30px_rgba(60,40,10,0.12)]"
+                  >
+                    {item.imageUrl && (
+                      <div className="relative w-full aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.name}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                        />
                       </div>
                     )}
-                  </div>
-                </Link>
-              ))}
+                    <div className="flex flex-1 flex-col p-6">
+                      <div className="flex justify-between items-baseline gap-4">
+                        <h3 className="font-serif text-xl tracking-wide text-foreground-strong">
+                          {item.name}
+                        </h3>
+                        <span className="font-serif text-lg text-accent whitespace-nowrap">
+                          ${(item.price / 100).toFixed(2)}
+                        </span>
+                      </div>
+                      <p className="font-body text-[15px] text-secondary mt-3 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="mt-auto pt-5 flex items-center justify-between gap-3">
+                        <div className="flex gap-2 flex-wrap">
+                          {item.dietaryTags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="font-body text-xs px-2.5 py-0.5 rounded-full border border-line-strong text-muted-foreground bg-background"
+                            >
+                              {tagLabel(tag)}
+                            </span>
+                          ))}
+                        </div>
+                        <span className="font-body text-sm text-accent whitespace-nowrap underline-offset-4 group-hover:underline">
+                          See ingredients
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
-    </main>
+          </section>
+        ))}
+
+        <div className="pb-16" />
+      </main>
+    </>
   );
 }

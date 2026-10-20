@@ -297,7 +297,7 @@ export default function AdminMenuItemsPage() {
           Available on menu
         </label>
 
-        {formError && <p className="text-sm text-red-600">{formError}</p>}
+        {formError && <p className="text-sm text-red-800">{formError}</p>}
 
         <div className="flex gap-2">
           <button
@@ -344,7 +344,7 @@ export default function AdminMenuItemsPage() {
                 </button>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="text-sm text-red-600 underline"
+                  className="text-sm text-red-800 underline"
                 >
                   Delete
                 </button>

@@ -30,3 +30,85 @@ body {
   color: var(--foreground);
   font-family: var(--font-serif), Georgia, serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Light theme — applied to the public inner pages (menu, item detail,
+   gallery, reservations) by putting `theme-light` on their <main>.
+   The home page, splash and admin keep the dark :root palette above.
+   Same brass accent and same serif as the home page, so the two feel like
+   one place: you enter through the dark door, then sit in the lit room.
+   ------------------------------------------------------------------ */
+:root {
+  --surface: #1c150f; /* dark theme: same step up as --muted */
+}
+
+.theme-light {
+  --background: #f5f1e9; /* page */
+  --surface: #fbf9f4; /* cards, form panel, modal */
+  --muted: #ece5d7; /* quiet fills: hover, active chips */
+
+  --foreground: #2b2219; /* body text */
+  --foreground-strong: #16100a; /* headings, prices, emphasis */
+  --secondary: #4a3d2e; /* descriptions */
+  --muted-foreground: #66583f; /* captions, labels */
+
+  --accent: #80612a; /* brass, darkened so it holds contrast on light */
+
+  --line: #e2d9c7; /* hairlines */
+  --line-strong: #c4b697; /* visible borders */
+
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* keeps the area behind/overscrolling the page light on inner pages */
+body:has(.theme-light) {
+  background: #f5f1e9;
+}
+
+.theme-light :focus-visible,
+header :focus-visible {
+  outline: 2px solid var(--accent, #c9a66b);
+  outline-offset: 3px;
+}
+header :focus-visible {
+  outline-color: #c9a66b;
+}
+
+/* Admin: same light palette, but set in the clean sans for a working tool,
+   with serif headings to keep the family resemblance. */
+.admin-scope {
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+.admin-scope h1,
+.admin-scope h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  color: var(--foreground-strong);
+  letter-spacing: 0.02em;
+}
+.admin-scope *,
+.admin-scope ::before,
+.admin-scope ::after {
+  border-color: var(--line-strong);
+}
+.admin-scope input,
+.admin-scope textarea,
+.admin-scope select {
+  background: var(--surface);
+  color: var(--foreground-strong);
+}
+.admin-scope input:focus,
+.admin-scope textarea:focus,
+.admin-scope select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}

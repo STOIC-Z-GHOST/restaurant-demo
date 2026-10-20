@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import BookingCountdown from "../components/BookingCountdown";
 import SectionDivider from "../components/SectionDivider";
+import SiteHeader from "../components/SiteHeader";
 
 export default function ReservationsPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -48,58 +48,38 @@ export default function ReservationsPage() {
   }
 
   return (
-    <main className="relative min-h-screen text-foreground">
-      {/* background photo */}
-      <div className="fixed inset-0 -z-10">
-        <Image
-          src="/images/reservation-bg.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          style={{ filter: "brightness(0.4) saturate(0.85)" }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(18,14,10,0.75) 0%, rgba(18,14,10,0.55) 50%, rgba(18,14,10,0.85) 100%)",
-          }}
-        />
-      </div>
-
-      <div className="px-6 py-16 sm:px-12">
+    <>
+      <SiteHeader />
+      <main className="theme-light min-h-screen px-6 pt-14 pb-20 sm:px-12">
         <div className="max-w-5xl mx-auto">
-          <Link
-            href="/"
-            className="font-serif text-xs tracking-[0.3em] text-accent hover:text-foreground-strong transition-colors"
-          >
-            ← AHADU
-          </Link>
+          <div className="text-center">
+            <h1 className="font-serif text-4xl sm:text-5xl tracking-[0.15em] text-foreground-strong">
+              RESERVE A TABLE
+            </h1>
+            <SectionDivider className="mt-6 mb-12 mx-auto max-w-[220px]" />
+          </div>
 
-          <div className="grid md:grid-cols-5 gap-16 mt-12">
+          <div className="grid md:grid-cols-5 gap-10 md:gap-12 items-start">
             {/* form */}
             <div className="md:col-span-3">
-              <h1 className="font-serif text-4xl tracking-[0.15em] mb-4">RESERVE A TABLE</h1>
-              <SectionDivider className="mb-10 max-w-[200px]" />
-
-              <div className="mb-10">
+              <div className="mb-8">
                 <BookingCountdown />
               </div>
 
               {submitted ? (
-                <div
-                  className="border rounded-sm p-8"
-                  style={{ borderColor: "var(--glass-border)", backgroundColor: "var(--glass-bg)" }}
-                >
-                  <h2 className="font-serif text-xl tracking-wide text-foreground-strong">
+                <div className="bg-surface border border-line-strong border-l-4 border-l-accent rounded-sm p-8">
+                  <h2 className="font-serif text-2xl text-foreground-strong">
                     Reservation received
                   </h2>
-                  <p className="text-muted-foreground mt-3 font-serif">
-                    Thank you — we've saved your request and will be in touch to confirm.
+                  <p className="font-body text-base text-secondary mt-3 leading-relaxed">
+                    Thank you. We&apos;ve saved your request and will be in touch to confirm.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5 font-serif">
+                <form
+                  onSubmit={handleSubmit}
+                  className="bg-surface border border-line rounded-sm p-6 sm:p-8 space-y-5"
+                >
                   {/* honeypot: hidden from real visitors, bots that
                       autofill every field tend to fill this in too */}
                   <input
@@ -119,109 +99,98 @@ export default function ReservationsPage() {
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="text-xs tracking-[0.2em] text-muted-foreground">NAME</label>
-                      <input
-                        name="name"
-                        required
-                        className="w-full bg-transparent border-b border-line-strong focus:border-accent outline-none py-2 mt-1 transition-colors"
-                      />
+                      <label htmlFor="name" className="font-body text-sm text-secondary">Name</label>
+                      <input id="name" name="name" required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                     <div>
-                      <label className="text-xs tracking-[0.2em] text-muted-foreground">EMAIL</label>
-                      <input
-                        name="email"
-                        type="email"
-                        required
-                        className="w-full bg-transparent border-b border-line-strong focus:border-accent outline-none py-2 mt-1 transition-colors"
-                      />
+                      <label htmlFor="email" className="font-body text-sm text-secondary">Email</label>
+                      <input id="email" name="email" type="email" required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="text-xs tracking-[0.2em] text-muted-foreground">PHONE (OPTIONAL)</label>
-                      <input
-                        name="phone"
-                        className="w-full bg-transparent border-b border-line-strong focus:border-accent outline-none py-2 mt-1 transition-colors"
-                      />
+                      <label htmlFor="phone" className="font-body text-sm text-secondary">Phone (optional)</label>
+                      <input id="phone" name="phone" className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                     <div>
-                      <label className="text-xs tracking-[0.2em] text-muted-foreground">PARTY SIZE</label>
-                      <input
-                        name="partySize"
-                        type="number"
-                        min={1}
-                        required
-                        className="w-full bg-transparent border-b border-line-strong focus:border-accent outline-none py-2 mt-1 transition-colors"
-                      />
+                      <label htmlFor="partySize" className="font-body text-sm text-secondary">Party size</label>
+                      <input id="partySize" name="partySize" type="number" min={1} required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs tracking-[0.2em] text-muted-foreground">DATE & TIME</label>
+                    <label htmlFor="date" className="font-body text-sm text-secondary">Date and time</label>
                     <input
+                      id="date"
                       name="date"
                       type="datetime-local"
                       required
-                      className="w-full bg-transparent border-b border-line-strong focus:border-accent outline-none py-2 mt-1 transition-colors"
-                      style={{ colorScheme: "dark" }}
+                      className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+                      style={{ colorScheme: "light" }}
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs tracking-[0.2em] text-muted-foreground">NOTES (OPTIONAL)</label>
-                    <textarea
-                      name="notes"
-                      rows={3}
-                      className="w-full bg-transparent border-b border-line-strong focus:border-accent outline-none py-2 mt-1 transition-colors resize-none"
-                    />
+                    <label htmlFor="notes" className="font-body text-sm text-secondary">Notes (optional)</label>
+                    <textarea id="notes" name="notes" rows={3} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none" />
                   </div>
 
-                  {error && <p className="text-sm text-red-400">{error}</p>}
+                  {error && (
+                    <p role="alert" className="font-body text-sm text-red-800">
+                      {error}
+                    </p>
+                  )}
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="mt-4 border border-accent text-accent hover:bg-accent hover:text-background tracking-[0.25em] text-sm px-8 py-3 transition-colors disabled:opacity-50"
+                    className="w-full sm:w-auto bg-foreground-strong text-[#f1e9d8] hover:bg-accent hover:text-white font-body tracking-[0.12em] text-sm px-10 py-3.5 rounded-sm transition-colors disabled:opacity-50"
                   >
-                    {loading ? "SUBMITTING..." : "REQUEST RESERVATION"}
+                    {loading ? "Submitting..." : "Request reservation"}
                   </button>
                 </form>
               )}
             </div>
 
-            {/* visit us panel */}
-            <div className="md:col-span-2 font-serif">
-              <h2 className="text-xs tracking-[0.3em] text-muted-foreground mb-6">VISIT US</h2>
+            {/* visit us — the one dark panel on the page, echoing the home screen */}
+            <aside className="md:col-span-2 bg-[#120e0a] text-[#d8cbb0] rounded-sm p-8 md:sticky md:top-24">
+              <h2 className="font-serif text-2xl tracking-wide text-[#f1e9d8]">Visit us</h2>
+              <div className="h-px bg-[#3d3223] my-5" />
 
-              <div className="space-y-6 text-secondary">
+              <div className="space-y-6">
                 <div>
-                  <h3 className="text-accent text-sm tracking-[0.15em] mb-1">HOURS</h3>
-                  <p className="text-sm leading-relaxed">
-                    [Add hours]
+                  <h3 className="font-serif text-lg text-[#c9a66b]">Hours</h3>
+                  <p className="font-body text-[15px] leading-relaxed mt-1">
+                    6:00 AM – 12:00 AM
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="text-accent text-sm tracking-[0.15em] mb-1">LOCATION</h3>
-                  <p className="text-sm leading-relaxed">
+                  <h3 className="font-serif text-lg text-[#c9a66b]">Location</h3>
+                  <p className="font-body text-[15px] leading-relaxed mt-1">
                     Bole, Addis Ababa, Ethiopia
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="text-accent text-sm tracking-[0.15em] mb-1">CONTACT</h3>
-                  <p className="text-sm leading-relaxed">
+                  <h3 className="font-serif text-lg text-[#c9a66b]">Contact</h3>
+                  <p className="font-body text-[15px] leading-relaxed mt-1">
                     +251 91 234 5678
                     <br />
-                    [Add email address]
+                    <a
+                      href="mailto:admin@ahadu.adrnds.com"
+                      className="underline underline-offset-4 decoration-[#6b5a3a] hover:text-[#c9a66b] transition-colors"
+                    >
+                      admin@ahadu.adrnds.com
+                    </a>
                   </p>
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

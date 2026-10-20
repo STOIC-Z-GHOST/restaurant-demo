@@ -8,6 +8,7 @@ module.exports = {
         foreground: "var(--foreground)",
         "foreground-strong": "var(--foreground-strong)",
         secondary: "var(--secondary)",
+        surface: "var(--surface)",
         muted: "var(--muted)",
         "muted-foreground": "var(--muted-foreground)",
         accent: "var(--accent)",
@@ -16,6 +17,7 @@ module.exports = {
       },
       fontFamily: {
         serif: ["var(--font-serif)", "Georgia", "serif"],
+        body: ["var(--font-body)", "system-ui", "sans-serif"],
       },
     },
   },

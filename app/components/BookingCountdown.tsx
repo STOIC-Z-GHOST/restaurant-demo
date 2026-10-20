@@ -62,9 +62,9 @@ export default function BookingCountdown() {
   const { days, hours, minutes, seconds } = formatDiff(state.diffMs);
 
   return (
-    <div className="border border-line-strong rounded-sm px-6 py-5 font-serif">
-      <p className="text-xs tracking-[0.25em] text-muted-foreground mb-3">
-        {state.isOpen ? "BOOKING WINDOW CLOSES IN" : "BOOKING OPENS IN"}
+    <div className="bg-surface border border-line-strong border-l-4 border-l-accent rounded-sm px-6 py-5">
+      <p className="font-body text-sm text-muted-foreground mb-3">
+        {state.isOpen ? "Booking window closes in" : "Booking opens in"}
       </p>
       <div className="flex gap-6">
         {[
@@ -74,16 +74,16 @@ export default function BookingCountdown() {
           { label: "Sec", value: seconds },
         ].map((unit) => (
           <div key={unit.label} className="text-center">
-            <div className="text-2xl text-foreground-strong tabular-nums">
+            <div className="font-serif text-3xl text-foreground-strong tabular-nums">
               {String(unit.value).padStart(2, "0")}
             </div>
-            <div className="text-[10px] tracking-wider text-muted-foreground mt-1">
-              {unit.label.toUpperCase()}
+            <div className="font-body text-xs text-muted-foreground mt-1">
+              {unit.label}
             </div>
           </div>
         ))}
       </div>
-      <p className="text-xs text-muted-foreground mt-4 leading-relaxed">
+      <p className="font-body text-sm text-secondary mt-4 leading-relaxed">
         {state.isOpen
           ? "Reservations are open now — book before the window closes Sunday night."
           : "Reservations open every Saturday and close Sunday night."}

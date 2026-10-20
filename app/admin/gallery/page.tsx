@@ -178,7 +178,7 @@ export default function AdminGalleryPage() {
           className="w-full border rounded-md p-2"
         />
 
-        {formError && <p className="text-sm text-red-600">{formError}</p>}
+        {formError && <p className="text-sm text-red-800">{formError}</p>}
 
         <div className="flex gap-2">
           <button
@@ -222,7 +222,7 @@ export default function AdminGalleryPage() {
                 </button>
                 <button
                   onClick={() => handleDelete(img.id)}
-                  className="text-sm text-red-600 underline"
+                  className="text-sm text-red-800 underline"
                 >
                   Delete
                 </button>
