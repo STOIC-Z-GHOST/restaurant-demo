@@ -3,6 +3,9 @@ import { galleryImages } from "@/db/schema";
 import { asc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+// Always run at request time — never prerender this at build, since it reads the database.
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const images = await db.select().from(galleryImages).orderBy(asc(galleryImages.sortOrder));
   return NextResponse.json({ images });

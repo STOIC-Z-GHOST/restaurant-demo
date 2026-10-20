@@ -3,6 +3,9 @@ import { menuItems } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { desc } from "drizzle-orm";
 
+// Always run at request time — never prerender this at build, since it reads the database.
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const items = await db.select().from(menuItems).orderBy(desc(menuItems.createdAt));
   return NextResponse.json({ items });
