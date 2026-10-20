@@ -105,6 +105,80 @@ export const ingredientInfo: Record<string, IngredientInfo> = {
   "Fresh lime": {
     description: "Hand-squeezed to order.",
   },
+  "Fried egg": {
+    description: "Free-range eggs, fried to order with a soft, runny yolk.",
+    allergen: "Contains egg",
+  },
+  "Chives": {
+    description: "Snipped fresh over the top just before serving.",
+  },
+  "Greek yogurt": {
+    description: "Thick, strained yogurt with a mild tang.",
+    allergen: "Contains dairy",
+  },
+  "Mixed berries": {
+    description: "Raspberries, blackberries and blueberries, rinsed and served fresh.",
+  },
+  "Granola": {
+    description: "Toasted oat clusters for crunch.",
+    allergen: "Contains gluten; may contain nuts",
+  },
+  "Boiled egg": {
+    description: "Cooked until just set, then halved.",
+    allergen: "Contains egg",
+  },
+  "Crumbled cheese": {
+    description: "Soft, creamy white cheese crumbled over the greens.",
+    allergen: "Contains dairy",
+  },
+  "Cucumber": {
+    description: "Sliced crisp and cool.",
+  },
+  "Cherry tomatoes": {
+    description: "Red and yellow cherry tomatoes, halved.",
+  },
+  "Croutons": {
+    description: "Cubed bread, toasted golden and seasoned.",
+    allergen: "Contains gluten",
+  },
+  "Balsamic vinaigrette": {
+    description: "Balsamic vinegar and olive oil, whisked with herbs.",
+  },
+  "Pine nuts": {
+    description: "Lightly toasted and scattered over the pasta.",
+    allergen: "Contains pine nuts",
+  },
+  "Asparagus": {
+    description: "Roasted until tender with a little bite left.",
+  },
+  "Green peas": {
+    description: "Sweet, bright and cooked just briefly.",
+  },
+  "Baby potatoes": {
+    description: "Small new potatoes, cooked until tender.",
+  },
+  "Lemon": {
+    description: "Zest and a squeeze of juice to finish the plate.",
+  },
+  "Rosemary butter": {
+    description: "Butter with fresh rosemary, melted over the steak as it rests.",
+    allergen: "Contains dairy",
+  },
+  "Roasted garlic": {
+    description: "Slow-roasted until soft and sweet.",
+  },
+  "Arborio rice": {
+    description: "Short-grain rice that turns creamy as it is slowly stirred.",
+  },
+  "Wild mushrooms": {
+    description: "A blend of chanterelle and other wild mushrooms.",
+  },
+  "Orange slices": {
+    description: "Fresh slices to garnish and add a touch of sweetness.",
+  },
+  "Raspberries": {
+    description: "Fresh and served alongside the cake.",
+  },
 };
 
 export function getIngredientInfo(name: string): IngredientInfo {

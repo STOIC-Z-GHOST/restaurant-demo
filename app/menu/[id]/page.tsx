@@ -49,14 +49,16 @@ export default async function MenuItemPage({
           </Link>
 
           {item.imageUrl && (
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] mt-6 rounded-sm overflow-hidden border border-line">
+            // natural proportions: the whole photo, never cropped
+            <div className="mt-6 rounded-sm overflow-hidden border border-line bg-muted">
               <Image
                 src={item.imageUrl}
                 alt={item.name}
-                fill
+                width={1400}
+                height={1400}
                 priority
                 sizes="(min-width: 672px) 672px, 100vw"
-                className="object-cover"
+                className="w-full h-auto max-h-[75vh] object-contain"
               />
             </div>
           )}

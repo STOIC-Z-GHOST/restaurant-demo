@@ -46,6 +46,21 @@ const CATEGORY_BACKGROUND_SIZE: Record<string, string> = {
   desserts: "100% 100%",
 };
 
+// Cards show each photo as a square. Most photos are close to square already;
+// for the tall or wide ones this picks which part of the picture stays in the
+// frame. The full, uncropped photo is always on the dish page.
+const IMAGE_FOCUS: Record<string, string> = {
+  "espresso.jpg": "80% center",
+  "lava-cake.jpg": "center 27%",
+  "salmon.jpg": "center 55%",
+  "sparkling-lime.jpg": "center 30%",
+};
+
+function focusFor(url: string | null) {
+  const file = url?.split("/").pop() ?? "";
+  return IMAGE_FOCUS[file] ?? "center";
+}
+
 function tagLabel(tag: string) {
   return tag.charAt(0).toUpperCase() + tag.slice(1);
 }
@@ -133,13 +148,14 @@ export default async function MenuPage() {
                     className="group flex flex-col bg-surface border border-line rounded-sm overflow-hidden transition-[border-color,box-shadow] duration-300 hover:border-accent hover:shadow-[0_10px_30px_rgba(60,40,10,0.12)]"
                   >
                     {item.imageUrl && (
-                      <div className="relative w-full aspect-[4/3] overflow-hidden">
+                      <div className="relative w-full aspect-square overflow-hidden bg-muted">
                         <Image
                           src={item.imageUrl}
                           alt={item.name}
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                          style={{ objectPosition: focusFor(item.imageUrl) }}
                         />
                       </div>
                     )}
