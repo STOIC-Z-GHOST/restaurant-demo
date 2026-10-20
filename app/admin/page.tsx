@@ -7,19 +7,19 @@ export default function AdminHome() {
       <div className="space-y-3">
         <Link
           href="/admin/menu-items"
-          className="block border rounded-md p-3 hover:bg-muted transition-colors"
+          className="block rounded-md px-5 py-4 bg-[#120e0a] text-[#f1e9d8] border border-[#3d3223] hover:border-[#c9a66b] hover:text-[#c9a66b] transition-colors"
         >
           Menu items
         </Link>
         <Link
           href="/admin/gallery"
-          className="block border rounded-md p-3 hover:bg-muted transition-colors"
+          className="block rounded-md px-5 py-4 bg-[#120e0a] text-[#f1e9d8] border border-[#3d3223] hover:border-[#c9a66b] hover:text-[#c9a66b] transition-colors"
         >
           Gallery
         </Link>
         <Link
           href="/admin/reservations"
-          className="block border rounded-md p-3 hover:bg-muted transition-colors"
+          className="block rounded-md px-5 py-4 bg-[#120e0a] text-[#f1e9d8] border border-[#3d3223] hover:border-[#c9a66b] hover:text-[#c9a66b] transition-colors"
         >
           Reservations
         </Link>

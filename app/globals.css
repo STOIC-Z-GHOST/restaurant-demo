@@ -52,19 +52,19 @@ html {
 }
 
 .theme-light {
-  --background: #e9dfca; /* page — warm sand */
-  --surface: #f6f0e2; /* cards, form panel, modal — a step lighter than the page */
-  --muted: #dbcfb5; /* quiet fills: hover, image placeholders */
+  --background: #ddd1b8; /* page — warm sand */
+  --surface: #ede5d2; /* cards, form panel, modal — a step lighter than the page */
+  --muted: #cfc1a3; /* quiet fills: hover, image placeholders */
 
   --foreground: #2b2219; /* body text */
   --foreground-strong: #16100a; /* headings, prices, emphasis */
   --secondary: #4a3d2e; /* descriptions */
-  --muted-foreground: #5c4e36; /* captions, labels */
+  --muted-foreground: #54462f; /* captions, labels */
 
-  --accent: #6f5222; /* brass, darkened so it holds contrast on light */
+  --accent: #664a1d; /* brass, darkened so it holds contrast on light */
 
-  --line: #d3c6aa; /* hairlines */
-  --line-strong: #b5a47c; /* visible borders */
+  --line: #c6b797; /* hairlines */
+  --line-strong: #a89770; /* visible borders */
 
   background: var(--background);
   color: var(--foreground);
@@ -72,7 +72,7 @@ html {
 
 /* keeps the area behind/overscrolling the page light on inner pages */
 body:has(.theme-light) {
-  background: #e9dfca;
+  background: #ddd1b8;
 }
 
 .theme-light :focus-visible,
