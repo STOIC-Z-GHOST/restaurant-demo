@@ -179,6 +179,23 @@ export const ingredientInfo: Record<string, IngredientInfo> = {
   "Raspberries": {
     description: "Fresh and served alongside the cake.",
   },
+  "Butternut squash": {
+    description: "Diced and roasted until caramelized at the edges.",
+  },
+  "Apple": {
+    description: "Crisp apple, sliced thin and fanned over the salad.",
+  },
+  "Dried cranberries": {
+    description: "Tart-sweet cranberries scattered through the greens.",
+  },
+  "Pecans": {
+    description: "Roughly chopped for a buttery crunch.",
+    allergen: "Contains tree nuts",
+  },
+  "Bacon": {
+    description: "Crisped and crumbled over the top.",
+    allergen: "Contains pork",
+  },
 };
 
 export function getIngredientInfo(name: string): IngredientInfo {

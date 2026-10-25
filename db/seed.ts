@@ -31,10 +31,10 @@ async function seed() {
     // ---------- lunch ----------
     {
       name: "Grilled Chicken Salad",
-      description: "Grilled chicken breast over mixed greens with boiled egg, crumbled cheese, cucumber, tomatoes and croutons, in a balsamic vinaigrette.",
+      description: "Grilled chicken over crisp greens with roasted butternut squash, apple, dried cranberries, pecans, bacon, crumbled cheese and a boiled egg, in a house vinaigrette.",
       price: 1450,
       category: "lunch",
-      ingredients: ["Grilled chicken", "Mixed greens", "Boiled egg", "Crumbled cheese", "Cucumber", "Cherry tomatoes", "Croutons", "Balsamic vinaigrette"],
+      ingredients: ["Grilled chicken", "Mixed greens", "Butternut squash", "Apple", "Dried cranberries", "Pecans", "Bacon", "Crumbled cheese", "Boiled egg", "Cherry tomatoes"],
       dietaryTags: [],
       imageUrl: "/images/menu/chicken-salad.jpg",
       available: true,
