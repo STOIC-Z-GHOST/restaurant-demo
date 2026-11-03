@@ -201,13 +201,6 @@ export default function ReservationsPage() {
                   <h3 className="font-serif text-lg text-[#c9a66b]">Contact</h3>
                   <p className="font-body text-[15px] leading-relaxed mt-1">
                     +251 91 234 5678
-                    <br />
-                    <a
-                      href="mailto:admin@ahadu.adrnds.com"
-                      className="underline underline-offset-4 decoration-[#6b5a3a] hover:text-[#c9a66b] transition-colors"
-                    >
-                      admin@ahadu.adrnds.com
-                    </a>
                   </p>
                 </div>
               </div>

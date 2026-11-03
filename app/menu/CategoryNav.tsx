@@ -31,10 +31,10 @@ export default function CategoryNav({ categories }: { categories: Cat[] }) {
   return (
     <nav
       aria-label="Menu sections"
-      className="sticky top-16 z-30 bg-background/95 backdrop-blur border-b border-line"
+      className="sticky top-16 z-30 bg-background border-b border-line"
     >
-      <div className="mx-auto max-w-6xl overflow-x-auto px-6 sm:px-12">
-        <ul className="flex gap-2 py-3 sm:justify-center min-w-max sm:min-w-0">
+      <div className="mx-auto max-w-6xl overflow-x-auto px-4 sm:px-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <ul className="flex gap-2 py-2.5 sm:py-3 sm:justify-center min-w-max sm:min-w-0">
           {categories.map((c) => {
             const isActive = active === c.id;
             return (

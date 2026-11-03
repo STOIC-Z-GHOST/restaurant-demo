@@ -75,12 +75,12 @@ export default async function MenuPage() {
     <>
       <SiteHeader />
       <main className="theme-light min-h-screen">
-        <div className="px-6 pt-14 pb-10 sm:px-12 text-center">
+        <div className="px-6 pt-8 pb-6 sm:px-12 sm:pt-12 sm:pb-8 text-center">
           <h1 className="font-serif text-4xl sm:text-5xl tracking-[0.2em] text-foreground-strong">
             MENU
           </h1>
           <SectionDivider className="mt-6 mx-auto max-w-[220px]" />
-          <p className="font-body text-base text-secondary mt-6 max-w-md mx-auto leading-relaxed">
+          <p className="font-body text-base text-secondary mt-4 sm:mt-6 max-w-md mx-auto leading-relaxed">
             From breakfast to dessert. Select a dish to see what goes into it.
           </p>
         </div>
@@ -93,12 +93,12 @@ export default async function MenuPage() {
           <section
             key={group.category}
             id={group.category}
-            className="scroll-mt-32 pt-12"
+            className="scroll-mt-32 pt-6 sm:pt-10"
           >
             {/* category banner — painted, not photographed, so it looks
                 intentional at any height; see note above */}
             <div
-              className="relative h-28 sm:h-36 overflow-hidden"
+              className="relative h-16 sm:h-32 overflow-hidden"
               style={{
                 background: group.background,
                 backgroundSize: group.backgroundSize,
@@ -109,7 +109,7 @@ export default async function MenuPage() {
               <div className="relative z-10 mx-auto h-full max-w-6xl flex items-center px-6 sm:px-12">
                 {/* frosted plate keeps the title legible over any banner */}
                 <div
-                  className="flex items-center gap-3 px-5 py-3 rounded-sm border"
+                  className="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-5 sm:py-3 rounded-sm border"
                   style={{
                     backgroundColor: "var(--glass-bg)",
                     borderColor: "var(--glass-border)",
@@ -120,7 +120,7 @@ export default async function MenuPage() {
                 >
                   <Diamond />
                   <h2
-                    className="font-serif text-2xl sm:text-3xl tracking-[0.25em] text-[#f1e9d8]"
+                    className="font-serif text-lg sm:text-3xl tracking-[0.2em] sm:tracking-[0.25em] text-[#f1e9d8]"
                     style={{ textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}
                   >
                     {group.label.toUpperCase()}
@@ -131,8 +131,8 @@ export default async function MenuPage() {
             </div>
 
             {/* dishes */}
-            <div className="mx-auto max-w-6xl px-6 py-10 sm:px-12">
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto max-w-6xl px-3 py-5 sm:px-12 sm:py-10">
+              <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
                 {group.items.map((item) => (
                   <Link
                     key={item.id}
@@ -155,35 +155,35 @@ export default async function MenuPage() {
                           src={item.imageUrl}
                           alt={item.name}
                           fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          sizes="(min-width: 1024px) 33vw, 50vw"
                           className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                         />
                       </div>
                     )}
-                    <div className="flex flex-1 flex-col p-6">
-                      <div className="flex justify-between items-baseline gap-4">
-                        <h3 className="font-serif text-xl tracking-wide text-foreground-strong">
+                    <div className="flex flex-1 flex-col p-3 sm:p-6">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline sm:gap-4">
+                        <h3 className="font-serif text-base sm:text-xl leading-snug tracking-wide text-foreground-strong">
                           {item.name}
                         </h3>
-                        <span className="font-serif text-lg text-accent whitespace-nowrap">
+                        <span className="font-serif text-sm sm:text-lg text-accent whitespace-nowrap mt-0.5 sm:mt-0">
                           ${(item.price / 100).toFixed(2)}
                         </span>
                       </div>
-                      <p className="font-body text-[15px] text-secondary mt-3 leading-relaxed">
+                      <p className="font-body text-[13px] sm:text-[15px] text-secondary mt-1.5 sm:mt-3 leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                         {item.description}
                       </p>
-                      <div className="mt-auto pt-5 flex items-center justify-between gap-3">
+                      <div className="mt-auto pt-3 sm:pt-5 flex items-center justify-between gap-3">
                         <div className="flex gap-2 flex-wrap">
                           {item.dietaryTags.map((tag) => (
                             <span
                               key={tag}
-                              className="font-body text-xs px-2.5 py-0.5 rounded-full border border-line-strong text-muted-foreground bg-background"
+                              className="font-body text-[11px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded-full border border-line-strong text-muted-foreground bg-background"
                             >
                               {tagLabel(tag)}
                             </span>
                           ))}
                         </div>
-                        <span className="font-body text-sm text-accent whitespace-nowrap underline-offset-4 group-hover:underline">
+                        <span className="hidden sm:inline font-body text-sm text-accent whitespace-nowrap underline-offset-4 group-hover:underline">
                           See ingredients
                         </span>
                       </div>
@@ -195,7 +195,7 @@ export default async function MenuPage() {
           </section>
         ))}
 
-        <div className="pb-16" />
+        <div className="pb-10 sm:pb-16" />
       </main>
     </>
   );
