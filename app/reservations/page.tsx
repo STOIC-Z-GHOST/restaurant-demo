@@ -5,6 +5,14 @@ import Link from "next/link";
 import BookingCountdown from "../components/BookingCountdown";
 import SectionDivider from "../components/SectionDivider";
 import SiteHeader from "../components/SiteHeader";
+import {
+  MAX_EMAIL_LENGTH,
+  MAX_NAME_LENGTH,
+  MAX_NOTES_LENGTH,
+  MAX_PARTY_SIZE,
+  MAX_PHONE_LENGTH,
+  RESERVATION_RETENTION_DAYS,
+} from "@/lib/reservation-config";
 
 export default function ReservationsPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -22,7 +30,13 @@ export default function ReservationsPage() {
       email: form.get("email"),
       phone: form.get("phone"),
       partySize: Number(form.get("partySize")),
-      date: form.get("date"),
+      // datetime-local has no timezone; convert in the browser so the server
+      // doesn't read the visitor's local time as UTC.
+      date: (() => {
+        const raw = form.get("date");
+        const d = typeof raw === "string" ? new Date(raw) : null;
+        return d && !Number.isNaN(d.getTime()) ? d.toISOString() : raw;
+      })(),
       notes: form.get("notes"),
       _hp: form.get("_hp"), // honeypot — real visitors never fill this in
     };
@@ -100,22 +114,22 @@ export default function ReservationsPage() {
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="name" className="font-body text-sm text-secondary">Name</label>
-                      <input id="name" name="name" required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
+                      <input id="name" name="name" required maxLength={MAX_NAME_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                     <div>
                       <label htmlFor="email" className="font-body text-sm text-secondary">Email</label>
-                      <input id="email" name="email" type="email" required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
+                      <input id="email" name="email" type="email" required maxLength={MAX_EMAIL_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="phone" className="font-body text-sm text-secondary">Phone (optional)</label>
-                      <input id="phone" name="phone" className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
+                      <input id="phone" name="phone" maxLength={MAX_PHONE_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                     <div>
                       <label htmlFor="partySize" className="font-body text-sm text-secondary">Party size</label>
-                      <input id="partySize" name="partySize" type="number" min={1} required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
+                      <input id="partySize" name="partySize" type="number" min={1} max={MAX_PARTY_SIZE} step={1} required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                   </div>
 
@@ -126,6 +140,10 @@ export default function ReservationsPage() {
                       name="date"
                       type="datetime-local"
                       required
+                      suppressHydrationWarning
+                      min={new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+                        .toISOString()
+                        .slice(0, 16)}
                       className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
                       style={{ colorScheme: "light" }}
                     />
@@ -133,8 +151,14 @@ export default function ReservationsPage() {
 
                   <div>
                     <label htmlFor="notes" className="font-body text-sm text-secondary">Notes (optional)</label>
-                    <textarea id="notes" name="notes" rows={3} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none" />
+                    <textarea id="notes" name="notes" rows={3} maxLength={MAX_NOTES_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none" />
                   </div>
+
+                  <p className="font-body text-xs text-secondary leading-relaxed">
+                    This is a demo site. Please don&apos;t enter real personal
+                    details — reservations are deleted automatically after{" "}
+                    {RESERVATION_RETENTION_DAYS} days.
+                  </p>
 
                   {error && (
                     <p role="alert" className="font-body text-sm text-red-800">

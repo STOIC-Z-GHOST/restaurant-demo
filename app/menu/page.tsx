@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { db } from "@/db";
 import { menuItems } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -7,6 +8,12 @@ import Diamond from "../components/Diamond";
 import SectionDivider from "../components/SectionDivider";
 import SiteHeader from "../components/SiteHeader";
 import CategoryNav from "./CategoryNav";
+
+export const metadata: Metadata = {
+  title: "Menu",
+  description:
+    "Breakfast, lunch, dinner, drinks and desserts at AHADU — with ingredients and dietary tags for every dish.",
+};
 
 export const dynamic = "force-dynamic";
 

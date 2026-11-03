@@ -2,12 +2,25 @@ import { db } from "@/db";
 import { menuItems } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import IngredientDetailClient from "./IngredientDetailClient";
 import SiteHeader from "../../components/SiteHeader";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const id = Number(params.id);
+  if (!Number.isInteger(id)) return { title: "Menu" };
+  const [item] = await db.select().from(menuItems).where(eq(menuItems.id, id));
+  if (!item) return { title: "Menu" };
+  return { title: item.name, description: item.description };
+}
 
 export default async function MenuItemPage({
   params,

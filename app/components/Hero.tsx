@@ -27,22 +27,24 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  if (showSplash) {
-    return (
-      <SplashScreen
-        onComplete={() => {
-          splashState.shown = true;
-          setShowSplash(false);
-        }}
-      />
-    );
-  }
-
+  // The page always renders; the splash is only an overlay on top of it
+  // (it's position:fixed). That way crawlers and link-preview bots, which
+  // read the server HTML, get the real heading, tagline and nav instead of
+  // an image-only splash.
   return (
     <main className="relative min-h-screen overflow-hidden bg-black flex flex-col items-center justify-center">
+      {showSplash && (
+        <SplashScreen
+          onComplete={() => {
+            splashState.shown = true;
+            setShowSplash(false);
+          }}
+        />
+      )}
+
       {/* real photo background */}
       <Image
-        src="/images/hero-bg.png"
+        src="/images/hero-bg.webp"
         alt=""
         fill
         priority

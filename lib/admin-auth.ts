@@ -9,10 +9,13 @@ export const ADMIN_COOKIE_NAME = "ahadu_admin_session";
 export const ADMIN_SESSION_MAX_AGE = 60 * 60 * 8; // 8 hours, in seconds
 
 function getSecret(): string {
-  const secret = process.env.ADMIN_PASSWORD;
-  if (!secret) {
+  // Deliberately separate from ADMIN_PASSWORD: if the cookie signing key were
+  // the password, anyone who could read a cookie could brute-force the
+  // password offline, and rotating one would force rotating the other.
+  const secret = process.env.SESSION_SECRET;
+  if (!secret || secret.length < 32) {
     throw new Error(
-      "ADMIN_PASSWORD env var is not set — required for the admin login gate."
+      "SESSION_SECRET env var is missing or too short (use 32+ random characters) — required to sign admin sessions."
     );
   }
   return secret;

@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { db } from "@/db";
 import { galleryImages } from "@/db/schema";
 import { asc } from "drizzle-orm";
 import Image from "next/image";
 import SectionDivider from "../components/SectionDivider";
 import SiteHeader from "../components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "Gallery",
+  description: "A look inside AHADU — the room, the bar and the kitchen.",
+};
 
 export const dynamic = "force-dynamic";
 

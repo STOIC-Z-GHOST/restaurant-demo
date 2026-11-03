@@ -107,7 +107,7 @@ intentional at any height.
   plate — which sits on the left — always lands on the calmer, darker part
   of the pattern, whatever the exact crop ends up being.
 
-The old category photos (`public/images/categories/breakfast.png` etc.) are
+The old category photos (`public/images/categories/breakfast.webp` etc.) are
 no longer referenced but are still in the repo if you want to go back to a
 photo treatment for any category — just add it back into the
 `CATEGORY_BACKGROUND` map as a `url(...)` with `backgroundSize: "cover"`.
@@ -130,17 +130,27 @@ Vercel deploy), `app/layout.tsx`, `app/globals.css`, `tailwind.config.js`,
 
 ## To wire up before deploy
 
-1. Set `ADMIN_PASSWORD` (any string) — this is the password for `/admin/login`
-   and also signs the session cookie. Required, or the admin gate throws.
+1. Set `ADMIN_PASSWORD` — the password for `/admin/login`. Login is rate-limited
+   (8 attempts / 15 min / IP) and compared in constant time.
+   Also set `SESSION_SECRET` — a separate random string of 32+ characters used
+   only to sign the session cookie (`openssl rand -hex 32`). Both are required;
+   changing `SESSION_SECRET` signs everyone out.
+   Optionally set `NEXT_PUBLIC_SITE_URL` (e.g. `https://ahadu.example.com`) so
+   link previews use the right absolute URL for the Open Graph image.
 2. Set `DATABASE_URL` (Neon Postgres connection string) — locally in `.env.local`,
    and in Vercel's project environment variables for the deployed site.
 3. `pnpm install`, then `pnpm db:push` to create tables, then `pnpm db:seed` to seed.
 4. `pnpm dev` to test locally before pushing to GitHub/Vercel.
-5. Add real image files under `public/images/menu/` and `public/images/gallery/`
+5. Already deployed with the old `.png`/`.jpg` image paths? After deploying this
+   version run `pnpm db:migrate-images` once to point existing rows at the new
+   `.webp` files (fresh seeds already use them).
+6. Add real image files under `public/images/menu/` and `public/images/gallery/`
    matching the paths in `db/seed.ts`, or swap the `imageUrl` values.
 
 If this ever becomes a real restaurant's site instead of a portfolio demo:
 remove the demo-mode blocks in the menu-items/gallery API routes, wire real
 `requireAdmin()` auth in place of (or alongside) the password gate, swap the
-rate limiter for Upstash Redis, and consider redacting guest contact info in
-the reservations view before sharing admin access with anyone but yourself.
+rate limiter for Upstash Redis, and give the admin reservations view the real
+guest details again behind proper per-user auth. In this demo the admin API masks
+names/emails/phones server-side, withholds notes, and deletes reservations after
+3 days (`RESERVATION_RETENTION_DAYS` in `lib/reservation-config.ts`).

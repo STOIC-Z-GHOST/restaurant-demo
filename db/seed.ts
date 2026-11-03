@@ -14,7 +14,7 @@ async function seed() {
       category: "breakfast",
       ingredients: ["Sourdough bread", "Avocado", "Fried egg", "Chili flakes", "Chives"],
       dietaryTags: ["vegetarian"],
-      imageUrl: "/images/menu/avocado-toast.jpg",
+      imageUrl: "/images/menu/avocado-toast.webp",
       available: true,
     },
     {
@@ -24,7 +24,7 @@ async function seed() {
       category: "breakfast",
       ingredients: ["Greek yogurt", "Mixed berries", "Granola"],
       dietaryTags: ["vegetarian"],
-      imageUrl: "/images/menu/yogurt-bowl.jpg",
+      imageUrl: "/images/menu/yogurt-bowl.webp",
       available: true,
     },
 
@@ -36,7 +36,7 @@ async function seed() {
       category: "lunch",
       ingredients: ["Grilled chicken", "Mixed greens", "Butternut squash", "Apple", "Dried cranberries", "Pecans", "Bacon", "Crumbled cheese", "Boiled egg", "Cherry tomatoes"],
       dietaryTags: [],
-      imageUrl: "/images/menu/chicken-salad.jpg",
+      imageUrl: "/images/menu/chicken-salad.webp",
       available: true,
     },
     {
@@ -46,7 +46,7 @@ async function seed() {
       category: "lunch",
       ingredients: ["Penne pasta", "Basil pesto", "Pine nuts", "Parmesan"],
       dietaryTags: ["vegetarian"],
-      imageUrl: "/images/menu/pesto-penne.jpg",
+      imageUrl: "/images/menu/pesto-penne.webp",
       available: true,
     },
 
@@ -58,7 +58,7 @@ async function seed() {
       category: "dinner",
       ingredients: ["Salmon", "Asparagus", "Green peas", "Baby potatoes", "Cherry tomatoes", "Lemon"],
       dietaryTags: ["gluten-free"],
-      imageUrl: "/images/menu/salmon.jpg",
+      imageUrl: "/images/menu/salmon.webp",
       available: true,
     },
     {
@@ -68,7 +68,7 @@ async function seed() {
       category: "dinner",
       ingredients: ["Ribeye steak", "Rosemary butter", "Roasted garlic"],
       dietaryTags: ["gluten-free"],
-      imageUrl: "/images/menu/ribeye.jpg",
+      imageUrl: "/images/menu/ribeye.webp",
       available: true,
     },
     {
@@ -78,7 +78,7 @@ async function seed() {
       category: "dinner",
       ingredients: ["Arborio rice", "Wild mushrooms", "Truffle oil", "Parmesan"],
       dietaryTags: ["vegetarian", "gluten-free"],
-      imageUrl: "/images/menu/risotto.jpg",
+      imageUrl: "/images/menu/risotto.webp",
       available: true,
     },
 
@@ -90,7 +90,7 @@ async function seed() {
       category: "drinks",
       ingredients: ["Espresso"],
       dietaryTags: ["vegan", "vegetarian", "gluten-free"],
-      imageUrl: "/images/menu/espresso.jpg",
+      imageUrl: "/images/menu/espresso.webp",
       available: true,
     },
     {
@@ -100,7 +100,7 @@ async function seed() {
       category: "drinks",
       ingredients: ["Espresso", "Oat milk"],
       dietaryTags: ["vegan", "vegetarian"],
-      imageUrl: "/images/menu/oat-latte.jpg",
+      imageUrl: "/images/menu/oat-latte.webp",
       available: true,
     },
     {
@@ -130,9 +130,9 @@ async function seed() {
   console.log("Seeding gallery images...");
 
   await db.insert(galleryImages).values([
-    { imageUrl: "/images/hero-bg.png", caption: "The marble island, evenings", sortOrder: 1 },
-    { imageUrl: "/images/gallery/open-shelving.png", caption: "Open shelving, kitchenside", sortOrder: 2 },
-    { imageUrl: "/images/gallery/bar-shelving.png", caption: "The bar", sortOrder: 3 },
+    { imageUrl: "/images/hero-bg.webp", caption: "The marble island, evenings", sortOrder: 1 },
+    { imageUrl: "/images/gallery/open-shelving.webp", caption: "Open shelving, kitchenside", sortOrder: 2 },
+    { imageUrl: "/images/gallery/bar-shelving.webp", caption: "The bar", sortOrder: 3 },
   ]);
 
   console.log("Seed complete.");

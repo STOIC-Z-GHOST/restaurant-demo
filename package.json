@@ -9,7 +9,8 @@
     "lint": "next lint",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx db/seed.ts",
-    "db:update-menu": "tsx db/update-menu.ts"
+    "db:update-menu": "tsx db/update-menu.ts",
+    "db:migrate-images": "tsx db/migrate-image-paths.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.0",

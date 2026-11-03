@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 // twelve horizontal slivers, softly feathered — more, thinner pieces than
@@ -9,6 +9,8 @@ import Image from "next/image";
 // just below its final position.
 const SLICE_COUNT = 12;
 const FEATHER = 3; // percent
+const SLICE_MS = 700; // per-slice fade/rise duration
+const FADE_MS = 500; // whole-splash fade out
 
 function maskFor(index: number) {
   const step = 100 / SLICE_COUNT;
@@ -28,9 +30,26 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
   const [inFlags, setInFlags] = useState<boolean[]>(Array(SLICE_COUNT).fill(false));
   const [fadingOut, setFadingOut] = useState(false);
 
+  // Hero passes a fresh onComplete every render, and it re-renders on every
+  // mouse move (cursor glow). With onComplete in the effect's dependencies,
+  // each mouse move restarted the whole timer chain and stretched the splash.
+  // Keep the latest callback in a ref and run the timers exactly once.
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
   useEffect(() => {
-    const stagger = 290; // was 340 — tuned down slightly since there are more slices now, so the overall build lands a bit slower without dragging
-    const startDelay = 250;
+    // ~2.4s total (was ~6s): 100ms + 12 slices x 90ms stagger, 700ms per
+    // slice, a short hold, then a 500ms fade.
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      onCompleteRef.current();
+      return;
+    }
+
+    const stagger = 90;
+    const startDelay = 100;
     // bottom slice (highest index) appears first, working upward
     const timers = Array.from({ length: SLICE_COUNT }).map((_, i) => {
       const order = SLICE_COUNT - 1 - i; // 0 = bottom slice goes first
@@ -42,22 +61,38 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
         });
       }, startDelay + order * stagger);
     });
-    const totalReveal = startDelay + SLICE_COUNT * stagger;
-    const startFadeOut = setTimeout(() => setFadingOut(true), totalReveal + 1500);
-    const finish = setTimeout(onComplete, totalReveal + 2200);
+    const lastSliceDone = startDelay + (SLICE_COUNT - 1) * stagger + SLICE_MS;
+    const startFadeOut = setTimeout(() => setFadingOut(true), lastSliceDone + 150);
+    const finish = setTimeout(() => onCompleteRef.current(), lastSliceDone + 150 + FADE_MS);
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(startFadeOut);
       clearTimeout(finish);
     };
-  }, [onComplete]);
+  }, []);
+
+  // Tap, click or any key skips: fade out quickly, then hand over to the page.
+  function skip() {
+    if (fadingOut) return;
+    setFadingOut(true);
+    setTimeout(() => onCompleteRef.current(), 250);
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", skip);
+    return () => window.removeEventListener("keydown", skip);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fadingOut]);
 
   const anyIn = inFlags.some(Boolean);
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black flex items-center justify-center transition-opacity duration-700 ease-out ${
-        fadingOut ? "opacity-0" : "opacity-100"
+      onClick={skip}
+      role="presentation"
+      title="Tap to skip"
+      className={`fixed inset-0 z-50 bg-black flex items-center justify-center cursor-pointer transition-opacity duration-500 ease-out ${
+        fadingOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
       {/* warm dark-gold ambient glow behind the mark */}
@@ -78,7 +113,7 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
             style={{
               maskImage: maskFor(i),
               WebkitMaskImage: maskFor(i),
-              transition: "opacity 1100ms ease-out, transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)",
+              transition: `opacity ${SLICE_MS}ms ease-out, transform ${SLICE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
               transform: inFlags[i] ? "translateY(0)" : "translateY(30px)",
               opacity: inFlags[i] ? 1 : 0,
               filter: inFlags[i]
@@ -86,7 +121,14 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
                 : "none",
             }}
           >
-            <Image src="/images/splash/glyph.png" alt="AHADU" fill className="object-contain" />
+            <Image
+              src="/images/splash/glyph.webp"
+              alt={i === 0 ? "AHADU" : ""}
+              fill
+              sizes="380px"
+              priority
+              className="object-contain"
+            />
           </div>
         ))}
       </div>

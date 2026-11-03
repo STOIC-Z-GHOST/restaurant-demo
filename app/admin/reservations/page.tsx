@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 import AdminHeader from "../AdminHeader";
-import { MAX_SEATS_PER_SLOT, SLOT_MINUTES } from "@/lib/reservation-config";
+import {
+  MAX_SEATS_PER_SLOT,
+  RESERVATION_RETENTION_DAYS,
+  SLOT_MINUTES,
+} from "@/lib/reservation-config";
 
 type Reservation = {
   id: number;
@@ -11,7 +15,7 @@ type Reservation = {
   phone: string | null;
   partySize: number;
   date: string;
-  notes: string | null;
+  hasNotes: boolean;
 };
 
 export default function AdminReservationsPage() {
@@ -35,10 +39,11 @@ export default function AdminReservationsPage() {
 
       <h1 className="text-2xl font-semibold mb-2">Reservations</h1>
       <p className="text-sm text-muted-foreground mb-6">
-        Real, live reservations from the booking form — this view is
-        read-only. Each {SLOT_MINUTES}-minute window holds up to{" "}
-        {MAX_SEATS_PER_SLOT} seats before the booking form starts rejecting
-        new requests for that time.
+        Live reservations from the booking form — this view is read-only.
+        Visitors&apos; details are masked here and reservations are deleted{" "}
+        {RESERVATION_RETENTION_DAYS} days after they&apos;re made. Each{" "}
+        {SLOT_MINUTES}-minute window holds up to {MAX_SEATS_PER_SLOT} seats
+        before the booking form starts rejecting new requests for that time.
       </p>
 
       {loading ? (
@@ -74,7 +79,11 @@ function ReservationList({ title, rows }: { title: string; rows: Reservation[] }
               Party of {r.partySize} · {r.email}
               {r.phone ? ` · ${r.phone}` : ""}
             </div>
-            {r.notes && <div className="text-sm mt-1">{r.notes}</div>}
+            {r.hasNotes && (
+              <div className="text-sm mt-1 italic text-muted-foreground">
+                Notes hidden in demo
+              </div>
+            )}
           </div>
         ))}
       </div>
