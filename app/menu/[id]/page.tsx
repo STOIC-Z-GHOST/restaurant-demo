@@ -109,7 +109,7 @@ export default async function MenuItemPage({
           {/* more from this category */}
           {others.length > 0 && (
             <div className="mt-12">
-              <h2 className="font-serif text-2xl tracking-wide text-foreground-strong mb-5 capitalize">
+              <h2 className="font-serif font-medium text-3xl leading-[1.2] text-foreground-strong mb-5 capitalize">
                 More {item.category}
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -119,8 +119,8 @@ export default async function MenuItemPage({
                     href={`/menu/${o.id}`}
                     className="bg-surface border border-line rounded-sm p-4 hover:border-accent transition-colors flex justify-between items-baseline gap-3"
                   >
-                    <span className="font-serif text-lg text-foreground-strong">{o.name}</span>
-                    <span className="font-serif text-accent whitespace-nowrap">
+                    <span className="font-serif font-semibold text-xl leading-[1.3] text-foreground-strong">{o.name}</span>
+                    <span className="font-body font-bold tabular-nums tracking-[0.04em] text-[15px] text-accent whitespace-nowrap">
                       ${(o.price / 100).toFixed(2)}
                     </span>
                   </Link>

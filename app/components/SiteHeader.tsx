@@ -20,7 +20,7 @@ export default function SiteHeader() {
         <Link
           href="/"
           aria-label="AHADU — home"
-          className="font-serif text-base sm:text-xl tracking-[0.3em] sm:tracking-[0.35em] text-[#f1e9d8] hover:text-[#c9a66b] transition-colors"
+          className="font-display font-semibold uppercase text-xl sm:text-[28px] tracking-[0.15em] text-[#f1e9d8] hover:text-[#c9a66b] transition-colors"
         >
           AHADU
         </Link>
@@ -33,7 +33,7 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`font-body text-[13px] sm:text-sm tracking-[0.08em] py-1 border-b transition-colors ${
+                className={`font-display font-medium uppercase text-xs sm:text-[13px] tracking-[0.12em] py-1 border-b transition-colors ${
                   active
                     ? "text-[#c9a66b] border-[#c9a66b]"
                     : "text-[#d8cbb0] border-transparent hover:text-[#f1e9d8]"

@@ -42,7 +42,7 @@ export default function CategoryNav({ categories }: { categories: Cat[] }) {
                 <a
                   href={`#${c.id}`}
                   aria-current={isActive ? "true" : undefined}
-                  className={`block font-body text-sm tracking-wide px-4 py-1.5 rounded-full border transition-colors ${
+                  className={`block font-display font-medium uppercase text-xs tracking-[0.12em] px-4 py-1.5 rounded-full border transition-colors ${
                     isActive
                       ? "bg-foreground-strong text-background border-foreground-strong"
                       : "border-line-strong text-secondary hover:border-accent hover:text-foreground-strong"

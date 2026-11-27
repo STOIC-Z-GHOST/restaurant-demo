@@ -79,7 +79,7 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center px-6">
         <h1
-          className="font-serif text-[clamp(2.5rem,8vw,5.5rem)] tracking-[0.35em] text-foreground-strong"
+          className="font-display font-semibold text-[clamp(2.5rem,8vw,5.5rem)] tracking-[0.2em] text-foreground-strong"
           style={{
             textShadow: "0 0 40px rgba(224,180,110,0.35), 0 0 90px rgba(0,0,0,0.6)",
           }}
@@ -87,7 +87,7 @@ export default function Hero() {
           AHADU
         </h1>
 
-        <p className="mt-6 font-serif italic text-base tracking-wide text-[#D8BE8F] opacity-90">
+        <p className="mt-6 font-serif italic text-xl sm:text-2xl leading-snug tracking-wide text-[#D8BE8F] opacity-90">
           The table is set. Come as you are, stay for the evening.
         </p>
 
@@ -96,7 +96,7 @@ export default function Hero() {
             <Link
               key={item.href}
               href={item.href}
-              className="inline-block font-serif font-light text-lg tracking-[0.4em] text-[#EDE6D6] hover:text-[#F6EFE0] hover:scale-110 transition-all duration-500 ease-out hover:[text-shadow:0_0_28px_rgba(224,180,110,0.75),0_0_56px_rgba(224,180,110,0.35),0_2px_8px_rgba(0,0,0,0.7)]"
+              className="inline-block font-display font-medium text-sm sm:text-base tracking-[0.3em] text-[#EDE6D6] hover:text-[#F6EFE0] hover:scale-110 transition-all duration-500 ease-out hover:[text-shadow:0_0_28px_rgba(224,180,110,0.75),0_0_56px_rgba(224,180,110,0.35),0_2px_8px_rgba(0,0,0,0.7)]"
               style={{
                 textShadow:
                   "0 0 18px rgba(224,180,110,0.4), 0 0 36px rgba(224,180,110,0.15), 0 2px 8px rgba(0,0,0,0.7)",

@@ -35,10 +35,10 @@ export default function IngredientDetailClient({ item }: { item: MenuItem }) {
   return (
     <div>
       <div className="flex justify-between items-baseline gap-6">
-        <h1 className="font-serif text-3xl sm:text-4xl tracking-wide text-foreground-strong">
+        <h1 className="font-serif font-semibold text-3xl sm:text-[40px] leading-[1.2] text-foreground-strong">
           {item.name}
         </h1>
-        <span className="font-serif text-2xl text-accent whitespace-nowrap">
+        <span className="font-body font-bold tabular-nums tracking-[0.04em] text-xl text-accent whitespace-nowrap">
           ${(item.price / 100).toFixed(2)}
         </span>
       </div>
@@ -60,7 +60,7 @@ export default function IngredientDetailClient({ item }: { item: MenuItem }) {
         </div>
       )}
 
-      <h2 className="font-serif text-2xl tracking-wide text-foreground-strong mt-12">
+      <h2 className="font-serif font-medium text-3xl leading-[1.2] text-foreground-strong mt-12">
         Ingredients
       </h2>
       <p className="font-body text-sm text-muted-foreground mt-1 mb-4">
@@ -91,7 +91,7 @@ export default function IngredientDetailClient({ item }: { item: MenuItem }) {
             className="bg-surface border border-line-strong rounded-sm p-8 max-w-sm w-full shadow-[0_20px_50px_rgba(18,14,10,0.35)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="font-serif text-2xl tracking-wide text-foreground-strong">
+            <h3 className="font-serif font-medium text-3xl leading-[1.2] text-foreground-strong">
               {selected}
             </h3>
             <p className="font-body text-[15px] text-secondary mt-3 leading-relaxed">

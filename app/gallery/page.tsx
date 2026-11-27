@@ -25,7 +25,7 @@ export default async function GalleryPage() {
       <main className="theme-light min-h-screen px-6 pt-14 pb-20 sm:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="text-center">
-            <h1 className="font-serif text-4xl sm:text-5xl tracking-[0.2em] text-foreground-strong">
+            <h1 className="font-serif font-medium text-4xl sm:text-[44px] leading-[1.2] tracking-[0.12em] text-foreground-strong">
               GALLERY
             </h1>
             <SectionDivider className="mt-6 mb-12 mx-auto max-w-[220px]" />
@@ -44,7 +44,7 @@ export default async function GalleryPage() {
                   />
                 </div>
                 {img.caption && (
-                  <figcaption className="font-serif italic text-lg text-secondary mt-3">
+                  <figcaption className="font-serif italic text-[22px] leading-[1.4] text-secondary mt-3">
                     {img.caption}
                   </figcaption>
                 )}

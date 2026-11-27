@@ -1,20 +1,32 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, Lato } from "next/font/google";
 
-const cormorant = Cormorant_Garamond({
+// Cinzel: the brand voice — logo, nav, eyebrows, category headers, buttons.
+const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-serif",
+  weight: ["500", "600"],
+  variable: "--font-display",
+  display: "swap",
 });
 
-// Clean sans for descriptions, labels, nav and form fields on the light inner
-// pages — Cormorant is beautiful for names and headings but too thin to read
-// comfortably at small sizes on a light background.
-const jost = Jost({
+// Cormorant Garamond: headlines, dish names, pull quotes (regular + italic).
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+// Lato: descriptions, prices, tags, form fields, small print. Cormorant is too
+// thin to read comfortably at small sizes. (Lato ships 300/400/700 only —
+// there is no 500 — so "medium" uses 400 plus tabular numerals.)
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
   variable: "--font-body",
+  display: "swap",
 });
 
 // Absolute base so relative OG/Twitter image paths resolve to full URLs
@@ -55,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${cinzel.variable} ${cormorant.variable} ${lato.variable}`}>
       <body>{children}</body>
     </html>
   );

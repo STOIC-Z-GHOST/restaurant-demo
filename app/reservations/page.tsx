@@ -67,7 +67,7 @@ export default function ReservationsPage() {
       <main className="theme-light min-h-screen px-6 pt-14 pb-20 sm:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center">
-            <h1 className="font-serif text-4xl sm:text-5xl tracking-[0.15em] text-foreground-strong">
+            <h1 className="font-serif font-medium text-4xl sm:text-[44px] leading-[1.2] tracking-[0.12em] text-foreground-strong">
               RESERVE A TABLE
             </h1>
             <SectionDivider className="mt-6 mb-12 mx-auto max-w-[220px]" />
@@ -82,7 +82,7 @@ export default function ReservationsPage() {
 
               {submitted ? (
                 <div className="bg-surface border border-line-strong border-l-4 border-l-accent rounded-sm p-8">
-                  <h2 className="font-serif text-2xl text-foreground-strong">
+                  <h2 className="font-serif font-medium text-3xl leading-[1.2] text-foreground-strong">
                     Reservation received
                   </h2>
                   <p className="font-body text-base text-secondary mt-3 leading-relaxed">
@@ -113,28 +113,28 @@ export default function ReservationsPage() {
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="name" className="font-body text-sm text-secondary">Name</label>
+                      <label htmlFor="name" className="font-body text-[15px] text-secondary">Name</label>
                       <input id="name" name="name" required maxLength={MAX_NAME_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                     <div>
-                      <label htmlFor="email" className="font-body text-sm text-secondary">Email</label>
+                      <label htmlFor="email" className="font-body text-[15px] text-secondary">Email</label>
                       <input id="email" name="email" type="email" required maxLength={MAX_EMAIL_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="phone" className="font-body text-sm text-secondary">Phone (optional)</label>
+                      <label htmlFor="phone" className="font-body text-[15px] text-secondary">Phone (optional)</label>
                       <input id="phone" name="phone" maxLength={MAX_PHONE_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                     <div>
-                      <label htmlFor="partySize" className="font-body text-sm text-secondary">Party size</label>
+                      <label htmlFor="partySize" className="font-body text-[15px] text-secondary">Party size</label>
                       <input id="partySize" name="partySize" type="number" min={1} max={MAX_PARTY_SIZE} step={1} required className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="date" className="font-body text-sm text-secondary">Date and time</label>
+                    <label htmlFor="date" className="font-body text-[15px] text-secondary">Date and time</label>
                     <input
                       id="date"
                       name="date"
@@ -150,7 +150,7 @@ export default function ReservationsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="notes" className="font-body text-sm text-secondary">Notes (optional)</label>
+                    <label htmlFor="notes" className="font-body text-[15px] text-secondary">Notes (optional)</label>
                     <textarea id="notes" name="notes" rows={3} maxLength={MAX_NOTES_LENGTH} className="w-full bg-background border border-line-strong rounded-sm px-4 py-3 mt-1.5 font-body text-base text-foreground-strong outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none" />
                   </div>
 
@@ -169,7 +169,7 @@ export default function ReservationsPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full sm:w-auto bg-foreground-strong text-[#f1e9d8] hover:bg-accent hover:text-white font-body tracking-[0.12em] text-sm px-10 py-3.5 rounded-sm transition-colors disabled:opacity-50"
+                    className="w-full sm:w-auto bg-foreground-strong text-[#f1e9d8] hover:bg-accent hover:text-white font-display font-semibold uppercase tracking-[0.15em] text-[13px] px-10 py-3.5 rounded-sm transition-colors disabled:opacity-50"
                   >
                     {loading ? "Submitting..." : "Request reservation"}
                   </button>
@@ -179,27 +179,27 @@ export default function ReservationsPage() {
 
             {/* visit us — the one dark panel on the page, echoing the home screen */}
             <aside className="md:col-span-2 bg-[#120e0a] text-[#d8cbb0] rounded-sm p-8 md:sticky md:top-24">
-              <h2 className="font-serif text-2xl tracking-wide text-[#f1e9d8]">Visit us</h2>
+              <h2 className="font-serif font-medium text-3xl leading-[1.2] text-[#f1e9d8]">Visit us</h2>
               <div className="h-px bg-[#3d3223] my-5" />
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-serif text-lg text-[#c9a66b]">Hours</h3>
-                  <p className="font-body text-[15px] leading-relaxed mt-1">
+                  <h3 className="font-display font-semibold uppercase text-xs tracking-[0.18em] text-[#c9a66b]">Hours</h3>
+                  <p className="font-body text-[15px] leading-[1.6] mt-2">
                     6:00 AM – 12:00 AM
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-serif text-lg text-[#c9a66b]">Location</h3>
-                  <p className="font-body text-[15px] leading-relaxed mt-1">
+                  <h3 className="font-display font-semibold uppercase text-xs tracking-[0.18em] text-[#c9a66b]">Location</h3>
+                  <p className="font-body text-[15px] leading-[1.6] mt-2">
                     Bole, Addis Ababa, Ethiopia
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-serif text-lg text-[#c9a66b]">Contact</h3>
-                  <p className="font-body text-[15px] leading-relaxed mt-1">
+                  <h3 className="font-display font-semibold uppercase text-xs tracking-[0.18em] text-[#c9a66b]">Contact</h3>
+                  <p className="font-body text-[15px] leading-[1.6] mt-2">
                     +251 91 234 5678
                   </p>
                 </div>

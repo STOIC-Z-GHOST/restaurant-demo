@@ -16,6 +16,7 @@ module.exports = {
         "line-strong": "var(--line-strong)",
       },
       fontFamily: {
+        display: ["var(--font-display)", "Georgia", "serif"],
         serif: ["var(--font-serif)", "Georgia", "serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
       },

@@ -76,7 +76,7 @@ export default async function MenuPage() {
       <SiteHeader />
       <main className="theme-light min-h-screen">
         <div className="px-6 pt-8 pb-6 sm:px-12 sm:pt-12 sm:pb-8 text-center">
-          <h1 className="font-serif text-4xl sm:text-5xl tracking-[0.2em] text-foreground-strong">
+          <h1 className="font-serif font-medium text-4xl sm:text-[44px] leading-[1.2] tracking-[0.12em] text-foreground-strong">
             MENU
           </h1>
           <SectionDivider className="mt-6 mx-auto max-w-[220px]" />
@@ -120,7 +120,7 @@ export default async function MenuPage() {
                 >
                   <Diamond />
                   <h2
-                    className="font-serif text-lg sm:text-3xl tracking-[0.2em] sm:tracking-[0.25em] text-[#f1e9d8]"
+                    className="font-display font-semibold text-sm sm:text-xl tracking-[0.14em] text-[#f1e9d8]"
                     style={{ textShadow: "0 1px 6px rgba(0,0,0,0.8)" }}
                   >
                     {group.label.toUpperCase()}
@@ -162,14 +162,14 @@ export default async function MenuPage() {
                     )}
                     <div className="flex flex-1 flex-col p-3 sm:p-6">
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline sm:gap-4">
-                        <h3 className="font-serif text-base sm:text-xl leading-snug tracking-wide text-foreground-strong">
+                        <h3 className="font-serif font-semibold text-[17px] sm:text-[22px] leading-[1.3] text-foreground-strong">
                           {item.name}
                         </h3>
-                        <span className="font-serif text-sm sm:text-lg text-accent whitespace-nowrap mt-0.5 sm:mt-0">
+                        <span className="font-body font-bold tabular-nums tracking-[0.04em] text-sm sm:text-[15px] text-accent whitespace-nowrap mt-0.5 sm:mt-0">
                           ${(item.price / 100).toFixed(2)}
                         </span>
                       </div>
-                      <p className="font-body text-[13px] sm:text-[15px] text-secondary mt-1.5 sm:mt-3 leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
+                      <p className="font-body text-[13px] sm:text-[15px] text-secondary mt-1.5 sm:mt-3 leading-[1.5] line-clamp-3 sm:line-clamp-none">
                         {item.description}
                       </p>
                       <div className="mt-auto pt-3 sm:pt-5 flex items-center justify-between gap-3">
